@@ -1,0 +1,4 @@
+<files your-file-name.txt>
+order allow,deny
+deny from all
+</files>
