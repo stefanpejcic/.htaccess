@@ -4,3 +4,4 @@ RewriteBase /
 RewriteCond %{QUERY_STRING} (author=\d+) [NC]
 RewriteRule .* - [F]
 # END block author scans 
+
