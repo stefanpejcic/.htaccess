@@ -1,0 +1,25 @@
+# Option 1
+# http://domain > http://www.domain
+
+<IfModule mod_rewrite.c>
+    # Options +FollowSymlinks #Not supported by some hosting
+    ### If you wish to redirect to a https:// simply substitute http: with https:
+    RewriteCond %{HTTP_HOST} !^www\..+$ [NC]
+    RewriteRule ^ http://www.%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+    ### Redirect away from /index.php to clear path
+    RewriteCond %{THE_REQUEST} ^.*/index.php  
+    RewriteRule ^(.*)index.php$ http://www.%{HTTP_HOST}%{REQUEST_URI}$1 [R=301,L] 
+</IfModule>
+
+# Option 2
+# http://www.domain > http://domain
+
+#<IfModule mod_rewrite.c>
+    # Options +FollowSymlinks #Not supported by some hosting
+    ### If you wish to redirect to a https:// simply substitute http: with https:
+    #RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+    #RewriteRule ^ http://%1%{REQUEST_URI} [R=301,L]
+    ### Redirect away from /index.php to clear path
+    #RewriteCond %{THE_REQUEST} ^.*/index.php  
+    #RewriteRule ^(.*)index.php$ http://%{HTTP_HOST}%{REQUEST_URI}$1 [R=301,L] 
+#</IfModule>
