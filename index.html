@@ -88,7 +88,7 @@
 
             <nav class="sidebar__nav">
                 <ul>
-                    <li><a href="#Rewrite">Rewrite and Redirection</a></li>
+                    <li><a href="#Rewrite">Redirection</a></li>
                     <li><a href="#Security">Security</a></li>
                     <li><a href="#Performance">Performance</a></li>
                     <li><a href="#Miscellaneous">Miscellaneous</a></li>
@@ -600,21 +600,39 @@ FileETag None</pre>
                         </div>
 
                     </div>
+					</div>
 					</section>
-					<section class="container section" id="Rewrite">
-                <h3 class="section__title">Rewrite and Redirection</h3>
-                <p class="section__title" style="margin-bottom: 10px; margin-top: -15px;">(Note: It is assumed that you have `mod_rewrite` installed and enabled. The first line should be 'RewriteEngine on' to enable this)</p>
+					<section class="container section" id="Miscellaneous">
+                <h3 class="section__title">Miscellaneous Rules</h3>
+                <p class="section__title" style="margin-bottom: 10px; margin-top: -15px;"></p>
 
                 <div class="row">
                     
 					<div class="col-md-6 col-lg-6">
                         <div class="css-cheats">
                             <div class="row justify-content-between align-items-center">
-                                <p class="col-xs-12 col-sm-12">Serve All Requests With One PHP File</p>
+                                <p class="col-xs-12 col-sm-12">Server Variables for mod_re足write with .htaccess</p>
 								
-                                <pre>RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^([^?]*)$ /index.php [NC,L,QSA]</pre>
+                                <pre>%{API_VERSION}
+%{DOCUMENT_ROOT}
+%{HTTP_ACCEPT}
+%{HTTP_COOKIE}
+%{HTTP_FORWARDED}
+%{HTTP_HOST}
+%{HTTP_PROXY_CONNECTION}
+%{HTTP_REFERER}
+%{HTTP_USER_AGENT}
+%{HTTPS}
+%{IS_SUBREQ}
+%{REQUEST_FILENAME}
+%{REQUEST_URI}
+%{SERVER_ADDR}
+%{SERVER_ADMIN}
+%{SERVER_NAME}
+%{SERVER_PORT}
+%{SERVER_PROTOCOL}
+%{SERVER_SOFTWARE}
+%{THE_REQUEST}</pre>
 								
                             </div>
                         </div>
@@ -622,10 +640,117 @@ RewriteRule ^([^?]*)$ /index.php [NC,L,QSA]</pre>
 					<div class="col-md-6 col-lg-6">
                         <div class="css-cheats">
                             <div class="row justify-content-between align-items-center">
-                                <p class="col-xs-12 col-sm-12">Force www with .htaccess</p>
-                                <pre>RewriteEngine on
-RewriteCond %{HTTP_HOST} ^example\.com [NC]
-RewriteRule ^(.*)$ https://www.example.com/$1 [L,R=301,NC]</pre>
+                                <p class="col-xs-12 col-sm-12">Set PHP Variables with .htaccess</p>
+                                <pre>php_value &#x3c;key> &#x3c;val></pre>
+                            </div>
+                        </div>                        
+                    </div>
+					<div class="col-md-6 col-lg-6">
+                        <div class="css-cheats">
+                            <div class="row justify-content-between align-items-center">
+                                <p class="col-xs-12 col-sm-12">Custom Error Pages with .htaccess</p>
+                                <pre>ErrorDocument 500 "Houston, we have a problem."
+ErrorDocument 401 https://error.yourdomain.com/mordor.html
+ErrorDocument 404 /errors/halflife3.html</pre>
+                            </div>
+                        </div>                        
+                    </div>
+					<div class="col-md-6 col-lg-6">
+                        <div class="css-cheats">
+                            <div class="row justify-content-between align-items-center">
+                                <p class="col-xs-12 col-sm-12">Redirect users to a maintenance page in .htaccess</p>
+                                <pre>ErrorDocument 403 YourMaintenancePageFilenameOrFullUrlUrl.html
+Order deny,allow
+Deny from all
+Allow from 555.555.555.555</pre>
+                            </div>
+                        </div>                        
+                    </div>
+					<div class="col-md-6 col-lg-6">
+                        <div class="css-cheats">
+                            <div class="row justify-content-between align-items-center">
+                                <p class="col-xs-12 col-sm-12">Force Downloading with .htaccess</p>
+                                <pre>&#x3c;Files *.md>
+        ForceType application/octet-stream
+        Header set Content-Disposition attachment
+&#x3c;/Files></pre>
+                            </div>
+                        </div>                        
+                    </div>
+					<div class="col-md-6 col-lg-6">
+                        <div class="css-cheats">
+                            <div class="row justify-content-between align-items-center">
+                                <p class="col-xs-12 col-sm-12">Disable Showing Server Info with .htaccess</p>
+                                <pre>ServerSignature Off</pre>
+                            </div>
+                        </div>                        
+                    </div>
+					<div class="col-md-6 col-lg-6">
+                        <div class="css-cheats">
+                            <div class="row justify-content-between align-items-center">
+                                <p class="col-xs-12 col-sm-12">Prevent Downloading with .htaccess</p>
+                                <pre>&#x3c;FilesMatch "\.(tex|log|aux)$">
+        Header set Content-Type text/plain
+&#x3c;/FilesMatch></pre>
+                            </div>
+                        </div>                        
+                    </div>
+					<div class="col-md-6 col-lg-6">
+                        <div class="css-cheats">
+                            <div class="row justify-content-between align-items-center">
+                                <p class="col-xs-12 col-sm-12">Allow Cross-Domain Fonts with .htaccess</p>
+                                <pre>&#x3c;IfModule mod_headers.c>
+        &#x3c;FilesMatch "\.(eot|otf|ttc|ttf|woff|woff2)$">
+                Header set Access-Control-Allow-Origin "*"
+        &#x3c;/FilesMatch>
+&#x3c;/IfModule></pre>
+                            </div>
+                        </div>                        
+                    </div>
+					<div class="col-md-6 col-lg-6">
+                        <div class="css-cheats">
+                            <div class="row justify-content-between align-items-center">
+                                <p class="col-xs-12 col-sm-12">Auto UTF-8 Encode with .htaccess</p>
+                                <pre># Use UTF-8 encoding for anything served text/plain or text/html
+AddDefaultCharset utf-8
+
+# Force UTF-8 for a number of file formats
+AddCharset utf-8 .atom .css .js .json .rss .vtt .xml</pre>
+                            </div>
+                        </div>                        
+                    </div>
+					<div class="col-md-6 col-lg-6">
+                        <div class="css-cheats">
+                            <div class="row justify-content-between align-items-center">
+                                <p class="col-xs-12 col-sm-12">Set Server Timezone with .htaccess</p>
+                                <pre>SetEnv TZ America/Los_Angeles</pre>
+                            </div>
+                        </div>                        
+                    </div>
+					<div class="col-md-6 col-lg-6">
+                        <div class="css-cheats">
+                            <div class="row justify-content-between align-items-center">
+                                <p class="col-xs-12 col-sm-12">Switch to Another PHP Version with .htaccess</p>
+                                <pre>AddHandler application/x-httpd-php55 .php</pre>
+                            </div>
+                        </div>                        
+                    </div>
+					<div class="col-md-6 col-lg-6">
+                        <div class="css-cheats">
+                            <div class="row justify-content-between align-items-center">
+                                <p class="col-xs-12 col-sm-12">Execute PHP with a different file extension with .htaccess</p>
+                                <pre>AddType application/x-httpd-php .ext</pre>
+                            </div>
+                        </div>                        
+                    </div>
+					<div class="col-md-6 col-lg-6">
+                        <div class="css-cheats">
+                            <div class="row justify-content-between align-items-center">
+                                <p class="col-xs-12 col-sm-12">Serve WebP Images Automatically from .htaccess</p>
+                                <pre>RewriteEngine On
+RewriteCond %{HTTP_ACCEPT} image/webp
+RewriteCond %{DOCUMENT_ROOT}/$1.webp -f
+RewriteRule (.+)\.(jpe?g|png)$ $1.webp [T=image/webp,E=accept:1]</pre>
                             </div>
                         </div>                        
                     </div>
