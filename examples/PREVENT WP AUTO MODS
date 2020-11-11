@@ -1,0 +1,3 @@
+# PREVENT WP AUTO MODS
+# @ https://m0n.co/08
+<IfModule mod_ignore_wordpress.c>
