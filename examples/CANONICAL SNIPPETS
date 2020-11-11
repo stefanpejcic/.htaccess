@@ -1,0 +1,73 @@
+# CANONICAL ROBOTS.TXT
+<ifModule mod_alias.c>
+ RedirectMatch 301 ^/(.*)/robots\.txt http://example.com/robots.txt
+</ifModule>
+
+# CANONICAL SITEMAP
+<ifModule mod_alias.c>
+ RedirectMatch 301 /sitemap\.xml$ http://example.com/sitemap-press.xml
+ RedirectMatch 301 /sitemap\.xml\.gz$ http://example.com/sitemap-press.xml.gz
+</ifModule>
+
+# MULTIPLE SITEMAPS
+<ifModule mod_rewrite.c>
+ RewriteBase /
+ RewriteCond %{REQUEST_URI} !^/sitemap\-(perish|press)\.xml(.gz)?$ [NC]
+ RewriteRule /sitemap\-(.*)?\.?(.*)?(.*)? http://example.com/sitemap-$1.$2$3 [R=301,L]
+</ifModule>
+
+# CANONICAL XMLRPC
+<ifModule mod_alias.c>
+ RedirectMatch 301 /press/(.*)/xmlrpc\.php$ http://example.com/press/xmlrpc.php
+</ifModule>
+
+# FORCE TRAILING SLASH
+<ifModule mod_rewrite.c>
+ RewriteCond %{REQUEST_URI} /+[^\.]+$
+ RewriteRule ^(.+[^/])$ %{REQUEST_URI}/ [R=301,L]
+</ifModule>
+
+# ROOT CANONICALIZATION
+<ifModule mod_rewrite.c>
+ RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /index\.php [NC]
+ RewriteRule ^index\.php$ http://example.com/ [R=301,L]
+ RewriteCond %{HTTP_HOST} ^www\.example\.com$ [NC]
+ RewriteRule (.*) http://example.com/$1 [R=301,L]
+</ifModule>
+
+# CANONICALIZATION
+<ifModule mod_alias.c>
+ # REMOVE INTITIAL INDEX.PHP
+ RedirectMatch 301 index.php/(.*) http://example.com/press/$1
+</ifModule>
+<ifModule mod_rewrite.c>
+ # REMOVE ADDITIONAL INDEX.PHP
+ RewriteBase /press/
+ RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /([^/]+/)*index\.(html|php)\ HTTP/
+ RewriteRule ^(([^/]+/)*)index\.(html|php)$ http://example.com/press/$1 [R=301,L]
+ # FORCE TRAILING SLASH
+ RewriteCond %{REQUEST_URI} /+[^\.]+$
+ RewriteRule ^(.+[^/])$ %{REQUEST_URI}/ [R=301,L]
+</ifModule>
+
+# REDIRECT PAGE QUERIES
+<ifModule mod_rewrite.c>
+ RewriteCond %{REQUEST_URI} !example.com [NC]
+ RewriteCond %{REQUEST_URI} !^/$ [NC]
+ RewriteCond %{QUERY_STRING} ^p\= [NC]
+ RewriteRule (.*) http://example.com/? [R=301,L]
+</ifModule>
+
+ # REDIRECT SUBDIRECTORIES
+<ifModule mod_rewrite.c>
+ RewriteBase /
+ RewriteCond %{REQUEST_URI} ^/(perish|press)/?$
+ RewriteRule .* http://example.com/ [R=301,L]
+</ifModule>
+
+# CLEAN EXTERNAL LINKS
+<ifModule mod_rewrite.c>
+ RewriteBase /
+ RewriteCond %{QUERY_STRING} scamdex [NC]
+ RewriteRule .* http://example.com/$1? [R=301,L]
+</ifModule>
