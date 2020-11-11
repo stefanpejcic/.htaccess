@@ -1,0 +1,6 @@
+#Disable file execution in the WordPress uploads folder
+
+Options -ExecCGI
+RewriteEngine On
+RewriteCond %{REQUEST_URI} !^.*wp-content/uploads/visualcomposer-assets/.*\.js$
+RewriteRule ^(.*\.js)$ - [F,L]
