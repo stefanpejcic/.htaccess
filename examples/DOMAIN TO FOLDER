@@ -1,0 +1,8 @@
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^(www.)?yourdomain.com$
+RewriteCond %{REQUEST_URI} !^/newfolder/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ /newfolder/$1
+RewriteCond %{HTTP_HOST} ^(www.)?yourdomain.com$
+RewriteRule ^(/)?$ newfolder/index.php [L]
